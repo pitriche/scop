@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   yeet.c                                             :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/03 12:23:57 by pitriche          #+#    #+#             */
-/*   Updated: 2021/05/31 11:36:03 by pitriche         ###   ########.fr       */
+/*   Created: 2021/05/31 11:37:52 by pitriche          #+#    #+#             */
+/*   Updated: 2021/05/31 13:23:28 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "scop.h"
+#ifndef UTILS_H
+# define UTILS_H
 
-int	yeet(t_all *al)
-{
-	if (al->glcontext)
-		SDL_GL_DeleteContext(al->glcontext);
-	if (al->window)
-	{
-		SDL_DestroyWindow(al->window);
-		SDL_Quit();
-	}
-	exit(0);
-}
+#include <stddef.h> // size_t
+
+void	ft_bzero(void *ptr, size_t size);
+
+#endif

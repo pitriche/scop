@@ -6,7 +6,7 @@
 #    By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/07 14:21:44 by pitriche          #+#    #+#              #
-#    Updated: 2021/05/28 18:26:55 by pitriche         ###   ########.fr        #
+#    Updated: 2021/05/31 13:20:34 by pitriche         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ LFLAGS = $(FLAGS)
 CFLAGS = -c $(FLAGS)
 
 SDL_DIR = frameworks
-FRAMEWORKS = -F $(SDL_DIR) -framework SDL2 -Wl,-rpath $(SDL_DIR)
+FRAMEWORKS = -F $(SDL_DIR) -framework SDL2 -Wl,-rpath $(SDL_DIR) -framework OpenGL
 
 CINCLUDE = -I include -I frameworks/SDL2.framework/headers \
 
@@ -39,11 +39,14 @@ CINCLUDE = -I include -I frameworks/SDL2.framework/headers \
 NAME = scop
 
 HEADERS = \
-include/scop.h
+include/scop.h	\
+include/utils.h	\
 
 SRC_FILES = 	\
 main.c		\
-main_loop.c		\
+main_loop.c	\
+utils.c		\
+yeet.c		\
 
 # ##############################################################################
 

@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 11:47:13 by pitriche          #+#    #+#             */
-/*   Updated: 2021/05/28 18:33:17 by pitriche         ###   ########.fr       */
+/*   Updated: 2021/05/31 13:47:15 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,31 +32,20 @@
 
 void		key_func(t_all *al, SDL_Event *event)
 {
-	SDL_KeyboardEvent kev;
+	unsigned	value;
 
-	kev = event->key;
-	if (event->type == SDL_KEYDOWN)
+	value = event->type == SDL_KEYDOWN ? 1 : 0;
+	switch (event->key.keysym.sym)
 	{
-		kev.keysym.sym == SDLK_ESCAPE ? exit(0) : 0;
-		kev.keysym.sym == SDLK_w ? al->keys.w = 1 : 0;
-		kev.keysym.sym == SDLK_a ? al->keys.a = 1 : 0;
-		kev.keysym.sym == SDLK_s ? al->keys.s = 1 : 0;
-		kev.keysym.sym == SDLK_d ? al->keys.d = 1 : 0;
-		kev.keysym.sym == SDLK_LEFT ? al->keys.left = 1 : 0;
-		kev.keysym.sym == SDLK_RIGHT ? al->keys.righ = 1 : 0;
-		kev.keysym.sym == SDLK_UP ? al->keys.up = 1 : 0;
-		kev.keysym.sym == SDLK_DOWN ? al->keys.down = 1 : 0;
-	}
-	else if (event->type == SDL_KEYDOWN)
-	{
-		kev.keysym.sym == SDLK_w ? al->keys.w = 0 : 0;
-		kev.keysym.sym == SDLK_a ? al->keys.a = 0 : 0;
-		kev.keysym.sym == SDLK_s ? al->keys.s = 0 : 0;
-		kev.keysym.sym == SDLK_d ? al->keys.d = 0 : 0;
-		kev.keysym.sym == SDLK_LEFT ? al->keys.left = 0 : 0;
-		kev.keysym.sym == SDLK_RIGHT ? al->keys.righ = 0 : 0;
-		kev.keysym.sym == SDLK_UP ? al->keys.up = 0 : 0;
-		kev.keysym.sym == SDLK_DOWN ? al->keys.down = 0 : 0;
+		case (SDLK_ESCAPE) : yeet(al); break;
+		case (SDLK_w) : al->keys.w = value; break;
+		case (SDLK_a) : al->keys.a = value; break;
+		case (SDLK_s) : al->keys.s = value; break;
+		case (SDLK_d) : al->keys.d = value; break;
+		case (SDLK_LEFT) : al->keys.left = value; break;
+		case (SDLK_RIGHT) : al->keys.righ = value; break;
+		case (SDLK_UP) : al->keys.up = value; break;
+		case (SDLK_DOWN) : al->keys.down = value; break;
 	}
 }
 
@@ -70,15 +59,20 @@ void		main_loop(t_all *al)
 		while (SDL_PollEvent(&event) != 0)
 		{
 			if (event.type == SDL_QUIT)
-				exit(0);
+				yeet(al);
 			if ((event.type == SDL_KEYDOWN || event.type == SDL_KEYUP) &&
 				!event.key.repeat)
 				key_func(al, &event);
 		}
+		al->pixels[10000] = 0xffff00;
+		al->pixels[10001] = 0xffff00;
+		al->pixels[10002] = 0xffff00;
+		al->pixels[10003] = 0xff0000;
+		al->pixels[10004] = 0xffff00;
+		al->pixels[10005] = 0xffff00;
+		al->pixels[10006] = 0xffff00;
+		SDL_UpdateWindowSurface(al->window);
+		// SDL_GL_SwapWindow(al->window); // or not
 		// dtime(al);
-		// if (al->status == ST_GAME)
-		// 	game(al);
-		// if (al->status == ST_PAUSE)
-		// 	game_pause(al);
 	}
 }
