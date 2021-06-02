@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+         #
+#    By: brunomartin <brunomartin@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/07 14:21:44 by pitriche          #+#    #+#              #
-#    Updated: 2021/05/31 13:20:34 by pitriche         ###   ########.fr        #
+#    Updated: 2021/06/02 13:37:49 by brunomartin      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ include/utils.h	\
 SRC_FILES = 	\
 main.c		\
 main_loop.c	\
+render.c	\
 utils.c		\
 yeet.c		\
 

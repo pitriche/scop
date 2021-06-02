@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brunomartin <brunomartin@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 11:37:52 by pitriche          #+#    #+#             */
-/*   Updated: 2021/05/31 13:23:28 by pitriche         ###   ########.fr       */
+/*   Updated: 2021/06/02 14:11:03 by brunomartin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include <stddef.h> // size_t
 
-void	ft_bzero(void *ptr, size_t size);
+void		ft_bzero(void *ptr, size_t size);
+const char	*read_file(const char *filename);
 
 #endif
