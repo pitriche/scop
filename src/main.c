@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/22 15:59:05 by becaraya          #+#    #+#             */
-/*   Updated: 2021/05/31 15:53:40 by pitriche         ###   ########.fr       */
+/*   Updated: 2021/06/01 10:26:43 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	*GetProcAddress(const char *name)
 
 static void	_openGl_function_load(t_GLfunction *func)
 {
-	func->glGenBuffers = (GENBUFFERS)GetProcAddress("glGenBuffers");
+	func->glGenBuffers = (GENBUFFERS)GetProcAddress("_glGenBuffers");
 }
 
 static void	init(t_all *al)
@@ -65,7 +65,6 @@ static void	init(t_all *al)
 
 	GLuint buffer;
 	al->gl.glGenBuffers(1, &buffer);
-	printf("<%u>\n", buffer);
 }
 
 int			main(int argc, char **argv)
