@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brunomartin <brunomartin@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 11:47:13 by pitriche          #+#    #+#             */
-/*   Updated: 2021/05/31 13:47:15 by pitriche         ###   ########.fr       */
+/*   Updated: 2021/06/02 11:08:52 by brunomartin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,15 +64,7 @@ void		main_loop(t_all *al)
 				!event.key.repeat)
 				key_func(al, &event);
 		}
-		al->pixels[10000] = 0xffff00;
-		al->pixels[10001] = 0xffff00;
-		al->pixels[10002] = 0xffff00;
-		al->pixels[10003] = 0xff0000;
-		al->pixels[10004] = 0xffff00;
-		al->pixels[10005] = 0xffff00;
-		al->pixels[10006] = 0xffff00;
-		SDL_UpdateWindowSurface(al->window);
-		// SDL_GL_SwapWindow(al->window); // or not
+		render(al);
 		// dtime(al);
 	}
 }

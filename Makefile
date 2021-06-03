@@ -6,7 +6,7 @@
 #    By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/07 14:21:44 by pitriche          #+#    #+#              #
-#    Updated: 2021/06/01 10:27:25 by pitriche         ###   ########.fr        #
+#    Updated: 2021/06/03 09:38:11 by pitriche         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ include/utils.h	\
 SRC_FILES = 	\
 main.c		\
 main_loop.c	\
+render.c	\
 utils.c		\
 yeet.c		\
 
