@@ -6,13 +6,22 @@
 /*   By: brunomartin <brunomartin@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 09:46:37 by brunomartin       #+#    #+#             */
-/*   Updated: 2021/06/04 09:59:06 by brunomartin      ###   ########.fr       */
+/*   Updated: 2021/06/04 10:39:33 by brunomartin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "scop.h"		/* t_all */
+#include "scop.h"
+#include "utils.h"		/* usec_timestamt */
 #include "utils.h"		/* read_file, bzero */
 #include <stdio.h>		/* printf */
+
+static void	init_time(t_time *time)
+{
+	time->fps = 60;
+	time->last = usec_timestamp();
+}
+
+/* ########################################################################## */
 
 static void	init_vao(t_all *al)
 {
@@ -139,4 +148,6 @@ void	init(t_all *al)
 	init_shader(al);
 	init_attribute(al);
 	init_uniforms(al);
+
+	init_time(&al->time);
 }

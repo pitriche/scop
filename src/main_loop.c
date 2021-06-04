@@ -6,30 +6,35 @@
 /*   By: brunomartin <brunomartin@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 11:47:13 by pitriche          #+#    #+#             */
-/*   Updated: 2021/06/04 10:00:55 by brunomartin      ###   ########.fr       */
+/*   Updated: 2021/06/04 10:41:55 by brunomartin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
+#include "utils.h"	/* usec_timestamp */
+#include <unistd.h>	/* usleep */
 
-// static void	dtime(t_all *al)
-// {
-// 	struct timeval	tv;
+static void	dtime(t_all *al)
+{
+	al->time.current = usec_timestamp();
 
-// 	gettimeofday(&tv, (void *)al->v0id);
-// 	al->curr_time = tv.tv_sec * 1000000 + tv.tv_usec;
-// 	if (al->curr_time < al->tgt_time)
-// 	{
-// 		usleep(al->tgt_time - al->curr_time);
-// 		al->curr_time = al->tgt_time;
-// 	}
-// 	al->dtime = al->curr_time - al->last_time;
-// 	al->dtime > 1000000 ? al->dtime = 1000000 : 0;
-// 	al->last_time = al->curr_time;
-// 	al->tgt_time = al->last_time + 1000000 / al->fps;
-// }
+	if (al->time.current < al->time.target)
+	{
+		usleep((unsigned int)(al->time.target - al->time.current));
+		al->time.current = al->time.target;
+	}
 
-void		key_func(t_all *al, SDL_Event *event)
+	al->time.delta = al->time.current - al->time.last;
+	al->time.delta > 1000000 ? al->time.delta = 1000000 : 0;
+
+	al->time.last = al->time.current;
+	al->time.target = al->time.current + 1000000 / al->time.fps;
+
+	al->time.elapsed += al->time.delta;
+	++al->time.elapsed_frames;
+}
+
+static void	key_func(t_all *al, SDL_Event *event)
 {
 	unsigned	value;
 
@@ -63,6 +68,10 @@ void		main_loop(t_all *al)
 				key_func(al, &event);
 		}
 		render(al);
-		// dtime(al);
+
+		dtime(al);
+		if (al->time.elapsed_frames % 30 == 0)
+			//printf("Render time: %f ms\n", al->time.delta / 1000.0f);
+			printf("FPS : %lu\n", 1000000 / al->time.delta);
 	}
 }

@@ -6,7 +6,7 @@
 #    By: brunomartin <brunomartin@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/07 14:21:44 by pitriche          #+#    #+#              #
-#    Updated: 2021/06/04 09:55:12 by brunomartin      ###   ########.fr        #
+#    Updated: 2021/06/04 10:40:55 by brunomartin      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ RESET   = \033[0m
 
 CC = gcc
 
-FL_OPTI = 
+FL_OPTI = -O2
 #-O3 -flto
 FLAGS = -Wall -Wextra -Wconversion -Wunused -Wuninitialized $(FL_OPTI)
 LFLAGS = $(FLAGS)

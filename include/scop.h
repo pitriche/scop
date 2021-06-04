@@ -6,7 +6,7 @@
 /*   By: brunomartin <brunomartin@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/22 15:59:52 by becaraya          #+#    #+#             */
-/*   Updated: 2021/06/04 09:47:41 by brunomartin      ###   ########.fr       */
+/*   Updated: 2021/06/04 10:38:05 by brunomartin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 /* fuck macos */
 # define GL_SILENCE_DEPRECATION
 
-// # include <math.h>
-// # include <sys/time.h>
 # include <OpenGL/gl3.h>
 # include "SDL.h"
 
@@ -42,6 +40,20 @@ typedef struct	s_keys
 }				t_keys;
 
 /* ########################################################################## */
+
+typedef struct	s_time
+{
+	unsigned		fps;
+
+	/* usec timestamps */
+	unsigned long	current;
+	unsigned long	last;
+	unsigned long	target;
+	unsigned long	delta;
+
+	unsigned long	elapsed; /* can lag behind real time if frame time >1sec */
+	unsigned		elapsed_frames;
+}				t_time;
 
 typedef struct	s_uniform
 {
@@ -69,20 +81,20 @@ typedef struct	s_shader
 
 typedef struct	s_all
 {
-	SDL_GLContext	glcontext;
-
+	/* SDL */
 	SDL_Window		*window;
+	SDL_GLContext	glcontext;
 	// SDL_Surface	*surface;
 	// unsigned int	*pixels;
 
+	/* OpenGL */
 	GLuint			vao; /* Vertex Array Object */
-	
 	GLuint			vbo; /* Vertex Buffer Object */
-
 	t_shader		shader;
 	t_attribute		attribute;
 	t_uniform		uniform;
 
+	t_time			time;
 	t_keys			keys;
 }				t_all;
 

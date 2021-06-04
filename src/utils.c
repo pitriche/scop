@@ -6,16 +6,26 @@
 /*   By: brunomartin <brunomartin@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 11:37:03 by pitriche          #+#    #+#             */
-/*   Updated: 2021/06/03 21:11:06 by brunomartin      ###   ########.fr       */
+/*   Updated: 2021/06/04 10:23:02 by brunomartin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
-#include <fcntl.h>	/* open */
-#include <unistd.h>	/* read, close, lseek */
-#include <stdlib.h>	/* malloc */
+#include <fcntl.h>		/* open */
+#include <unistd.h>		/* read, close, lseek */
+#include <stdlib.h>		/* malloc */
+#include <sys/time.h>	/* gettimeofday */
 
-const char	*read_file(const char *filename)
+unsigned long	usec_timestamp(void)
+{
+	struct timeval	tv;
+	struct timezone	tz;
+
+	gettimeofday(&tv, &tz);
+	return ((unsigned long)tv.tv_sec * 1000000UL + (unsigned long)tv.tv_usec);
+}
+
+const char		*read_file(const char *filename)
 {
 	char	*content;
 	int		fd;
@@ -34,7 +44,7 @@ const char	*read_file(const char *filename)
 	return (content);
 }
 
-void	ft_bzero(void *ptr, size_t size)
+void			ft_bzero(void *ptr, size_t size)
 {
 	while (size & 0b111)
 	{
