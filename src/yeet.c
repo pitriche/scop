@@ -6,11 +6,12 @@
 /*   By: brunomartin <brunomartin@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 12:23:57 by pitriche          #+#    #+#             */
-/*   Updated: 2021/06/02 15:04:25 by brunomartin      ###   ########.fr       */
+/*   Updated: 2021/06/04 09:50:46 by brunomartin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
+#include <stdlib.h>
 
 int	yeet(t_all *al)
 {

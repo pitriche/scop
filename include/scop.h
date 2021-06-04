@@ -6,7 +6,7 @@
 /*   By: brunomartin <brunomartin@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/22 15:59:52 by becaraya          #+#    #+#             */
-/*   Updated: 2021/06/02 15:00:08 by brunomartin      ###   ########.fr       */
+/*   Updated: 2021/06/04 09:47:41 by brunomartin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 // # include <math.h>
 // # include <sys/time.h>
-# include <OpenGL/gl.h>
+# include <OpenGL/gl3.h>
 # include "SDL.h"
 
 # define WIN_TITLE "xXx_Qu1Ck_Sc0P_xXx"
@@ -43,6 +43,17 @@ typedef struct	s_keys
 
 /* ########################################################################## */
 
+typedef struct	s_uniform
+{
+	GLint	screen_ratio;
+}				t_uniform;
+
+typedef struct	s_attribute
+{
+	GLuint	position;
+	GLuint	color;
+}				t_attribute;
+
 typedef struct	s_shader
 {
 	const GLchar	*vertex_code;
@@ -54,23 +65,30 @@ typedef struct	s_shader
 	GLuint			program;
 }				t_shader;
 
+/* ########################################################################## */
+
 typedef struct	s_all
 {
 	SDL_GLContext	glcontext;
 
 	SDL_Window		*window;
-	// SDL_Surface		*surface;
+	// SDL_Surface	*surface;
 	// unsigned int	*pixels;
 
-	GLuint			vbo; // Vertex Buffer Object
+	GLuint			vao; /* Vertex Array Object */
+	
+	GLuint			vbo; /* Vertex Buffer Object */
 
 	t_shader		shader;
+	t_attribute		attribute;
+	t_uniform		uniform;
 
 	t_keys			keys;
 }				t_all;
 
 /* ########################################################################## */
 
+void	init(t_all *al);
 void	main_loop(t_all *al);
 void	render(t_all *al);
 int		yeet(t_all *al);

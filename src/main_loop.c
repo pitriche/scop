@@ -6,7 +6,7 @@
 /*   By: brunomartin <brunomartin@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 11:47:13 by pitriche          #+#    #+#             */
-/*   Updated: 2021/06/02 11:08:52 by brunomartin      ###   ########.fr       */
+/*   Updated: 2021/06/04 10:00:55 by brunomartin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@
 // 	al->tgt_time = al->last_time + 1000000 / al->fps;
 // }
 
-
 void		key_func(t_all *al, SDL_Event *event)
 {
 	unsigned	value;
@@ -48,7 +47,6 @@ void		key_func(t_all *al, SDL_Event *event)
 		case (SDLK_DOWN) : al->keys.down = value; break;
 	}
 }
-
 
 void		main_loop(t_all *al)
 {

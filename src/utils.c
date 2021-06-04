@@ -6,14 +6,14 @@
 /*   By: brunomartin <brunomartin@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 11:37:03 by pitriche          #+#    #+#             */
-/*   Updated: 2021/06/02 14:13:08 by brunomartin      ###   ########.fr       */
+/*   Updated: 2021/06/03 21:11:06 by brunomartin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
-#include <fcntl.h>	// open
-#include <unistd.h>	// read, close, lseek
-#include <stdlib.h>	// malloc
+#include <fcntl.h>	/* open */
+#include <unistd.h>	/* read, close, lseek */
+#include <stdlib.h>	/* malloc */
 
 const char	*read_file(const char *filename)
 {

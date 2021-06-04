@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+         #
+#    By: brunomartin <brunomartin@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/07 14:21:44 by pitriche          #+#    #+#              #
-#    Updated: 2021/06/03 09:38:11 by pitriche         ###   ########.fr        #
+#    Updated: 2021/06/04 09:55:12 by brunomartin      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ include/scop.h	\
 include/utils.h	\
 
 SRC_FILES = 	\
+init.c		\
 main.c		\
 main_loop.c	\
 render.c	\
