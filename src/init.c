@@ -6,7 +6,7 @@
 /*   By: brunomartin <brunomartin@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 09:46:37 by brunomartin       #+#    #+#             */
-/*   Updated: 2021/06/04 10:39:33 by brunomartin      ###   ########.fr       */
+/*   Updated: 2021/06/04 10:51:53 by brunomartin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,34 @@ static void	init_vao(t_all *al)
 static void	init_vbo(t_all *al)
 {
 	static const GLfloat vertex[] =
-	{	/* position				|	color 				*/
-		-1.0f,	-0.866f,	1.0f,	1.0f,	0.0f,	0.0f,
-		1.0f,	-0.866f,	1.0f,	0.0f,	1.0f,	0.0f,
-		0.0f,	0.866f,		1.0f,	0.0f,	0.0f,	1.0f,
+	{	/* position			|	color 				*/
+		-1.0f,	1.0f,	1.0f,	1.0f,	0.0f,	0.0f, /* nw */
+		1.0f,	1.0f,	1.0f,	0.0f,	1.0f,	0.0f, /* ne */
+		1.0f,	-1.0f,	1.0f,	1.0f,	0.0f,	0.0f, /* se */
+		-1.0f,	-1.0f,	1.0f,	0.0f,	0.0f,	1.0f, /* sw */
 	};
+
 	glGenBuffers(1, &al->vbo);
 	printf("VBO: [%d/1]\n", al->vbo);
 
 	glBindBuffer(GL_ARRAY_BUFFER, al->vbo);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertex), vertex, GL_STATIC_DRAW);
+}
+
+static void	init_ebo(t_all *al)
+{
+	static const GLuint	element[] =
+	{
+		0, 1, 2, /* north east triangle */
+		2, 3, 0, /* south west triangle */
+	};
+
+	glGenBuffers(1, &al->ebo);
+	printf("EBO: [%d/1]\n", al->ebo);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, al->ebo);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(element), element,
+		GL_STATIC_DRAW);
 }
 
 /* ########################################################################## */
@@ -145,6 +163,7 @@ void	init(t_all *al)
 
 	init_vao(al);
 	init_vbo(al);
+	init_ebo(al);
 	init_shader(al);
 	init_attribute(al);
 	init_uniforms(al);

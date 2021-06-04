@@ -6,7 +6,7 @@
 /*   By: brunomartin <brunomartin@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/22 15:59:52 by becaraya          #+#    #+#             */
-/*   Updated: 2021/06/04 10:38:05 by brunomartin      ###   ########.fr       */
+/*   Updated: 2021/06/04 10:49:16 by brunomartin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ typedef struct	s_all
 	/* OpenGL */
 	GLuint			vao; /* Vertex Array Object */
 	GLuint			vbo; /* Vertex Buffer Object */
+	GLuint			ebo; /* Element Buffer Object */
 	t_shader		shader;
 	t_attribute		attribute;
 	t_uniform		uniform;
