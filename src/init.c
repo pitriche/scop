@@ -6,7 +6,7 @@
 /*   By: brunomartin <brunomartin@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 09:46:37 by brunomartin       #+#    #+#             */
-/*   Updated: 2021/06/04 17:28:33 by brunomartin      ###   ########.fr       */
+/*   Updated: 2021/06/04 17:46:41 by brunomartin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,9 @@ static void	init_vbo(t_all *al)
 	printf("VBO: [%d/1]\t", al->vbo);
 
 	glBindBuffer(GL_ARRAY_BUFFER, al->vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertex), vertex, GL_STATIC_DRAW);
+	// glBufferData(GL_ARRAY_BUFFER, sizeof(vertex), vertex, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, al->data.vertex_size, al->data.vertex,
+		GL_STATIC_DRAW);
 }
 
 static void	init_ebo(t_all *al)
@@ -58,8 +60,8 @@ static void	init_ebo(t_all *al)
 	printf("EBO: [%d/2]\n", al->ebo);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, al->ebo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(element), element,
-		GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, al->data.element_size,
+		al->data.element, GL_STATIC_DRAW);
 }
 
 /* ########################################################################## */
@@ -107,16 +109,16 @@ static void	init_attribute(t_all *al)
 {
 	al->attribute.position = (GLuint)glGetAttribLocation(al->shader.program,
 		"position");
-	al->attribute.color = (GLuint)glGetAttribLocation(al->shader.program,
-		"color");
+	// al->attribute.color = (GLuint)glGetAttribLocation(al->shader.program,
+	// 	"color");
 	
 	glVertexAttribPointer(al->attribute.position, 3, GL_FLOAT, GL_FALSE,
-		sizeof(float) * 6, (void *)(0));
-	glVertexAttribPointer(al->attribute.color, 3, GL_FLOAT, GL_FALSE,
-		sizeof(float) * 6, (void *)(sizeof(float) * 3));
+		sizeof(float) * 3, (void *)(0));
+	// glVertexAttribPointer(al->attribute.color, 3, GL_FLOAT, GL_FALSE,
+	// 	sizeof(float) * 6, (void *)(sizeof(float) * 3));
 	
 	glEnableVertexAttribArray(al->attribute.position);
-	glEnableVertexAttribArray(al->attribute.color);
+	// glEnableVertexAttribArray(al->attribute.color);
 }
 
 static void	init_uniforms(t_all *al)

@@ -6,7 +6,7 @@
 /*   By: brunomartin <brunomartin@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 09:46:37 by brunomartin       #+#    #+#             */
-/*   Updated: 2021/06/04 17:27:48 by brunomartin      ###   ########.fr       */
+/*   Updated: 2021/06/04 17:43:52 by brunomartin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,8 +158,10 @@ static void		init_sizes(t_all *al, const char *str)
 		}
 		current += next_line(str, current);
 	}
-	al->data.vertex = malloc(al->data.vertex_size * 3 * sizeof(float));
-	al->data.element = malloc(al->data.element_size * 3 * sizeof(unsigned int));
+	al->data.vertex_size *= 3 * sizeof(float);
+	al->data.element_size *= 3 * sizeof(unsigned int);
+	al->data.vertex = malloc((size_t)al->data.vertex_size);
+	al->data.element = malloc((size_t)al->data.element_size);
 }
 
 /* ########################################################################## */
@@ -188,6 +190,7 @@ void	parse_data(t_all *al, char *filename)
 		current += next_line(file, current);
 	}
 	free((void *)file);
-	printf("Loaded %u vertices and %u elements\n", (unsigned)al->data.vertex_size,
-		(unsigned)al->data.element_size);
+	printf("Loaded %ld vertices and %ld elements\n",
+		al->data.vertex_size / (long)(3 * sizeof(float)),
+		al->data.element_size / (long)(3 * sizeof(unsigned int)));
 }

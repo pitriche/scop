@@ -6,7 +6,7 @@
 /*   By: brunomartin <brunomartin@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/22 15:59:52 by becaraya          #+#    #+#             */
-/*   Updated: 2021/06/04 16:20:42 by brunomartin      ###   ########.fr       */
+/*   Updated: 2021/06/04 17:42:02 by brunomartin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,11 @@ typedef struct	s_time
 /* 3d data and buffers */
 typedef struct	s_data
 {
-	size_t	vertex_size;
-	GLfloat	*vertex;
+	GLsizeiptr	vertex_size;
+	GLfloat		*vertex;
 
-	size_t	element_size;
-	GLuint	*element;
+	GLsizeiptr	element_size;
+	GLuint		*element;
 }				t_data;
 
 typedef struct	s_uniform
