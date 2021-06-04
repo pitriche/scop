@@ -6,7 +6,7 @@
 /*   By: brunomartin <brunomartin@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/22 15:59:52 by becaraya          #+#    #+#             */
-/*   Updated: 2021/06/04 10:49:16 by brunomartin      ###   ########.fr       */
+/*   Updated: 2021/06/04 16:20:42 by brunomartin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,18 @@ typedef struct	s_time
 	unsigned		elapsed_frames;
 }				t_time;
 
+/* ########################################################################## */
+
+/* 3d data and buffers */
+typedef struct	s_data
+{
+	size_t	vertex_size;
+	GLfloat	*vertex;
+
+	size_t	element_size;
+	GLuint	*element;
+}				t_data;
+
 typedef struct	s_uniform
 {
 	GLint	screen_ratio;
@@ -95,13 +107,16 @@ typedef struct	s_all
 	t_attribute		attribute;
 	t_uniform		uniform;
 
+	t_data			data;
+
 	t_time			time;
 	t_keys			keys;
 }				t_all;
 
 /* ########################################################################## */
 
-void	init(t_all *al);
+void	init(t_all *al, char *filename);
+void	parse_data(t_all *al, char *filename);
 void	main_loop(t_all *al);
 void	render(t_all *al);
 int		yeet(t_all *al);

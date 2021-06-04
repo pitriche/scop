@@ -6,7 +6,7 @@
 /*   By: brunomartin <brunomartin@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 12:23:57 by pitriche          #+#    #+#             */
-/*   Updated: 2021/06/04 09:50:46 by brunomartin      ###   ########.fr       */
+/*   Updated: 2021/06/04 12:24:40 by brunomartin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,13 @@ int	yeet(t_all *al)
 		free((void *)al->shader.fragment_code);
 	if (al->shader.vertex_code)
 		free((void *)al->shader.vertex_code);
+
+	
+	/* vertex and element data */
+	if (al->data.vertex)
+		free((void *)al->data.vertex);
+	if (al->data.element)
+		free((void *)al->data.element);
 
 	/* OpenGL Context */
 	if (al->glcontext)

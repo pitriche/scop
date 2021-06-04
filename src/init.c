@@ -6,13 +6,12 @@
 /*   By: brunomartin <brunomartin@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 09:46:37 by brunomartin       #+#    #+#             */
-/*   Updated: 2021/06/04 10:51:53 by brunomartin      ###   ########.fr       */
+/*   Updated: 2021/06/04 17:28:33 by brunomartin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
-#include "utils.h"		/* usec_timestamt */
-#include "utils.h"		/* read_file, bzero */
+#include "utils.h"		/* read_file, bzero, usec_timestamt */
 #include <stdio.h>		/* printf */
 
 static void	init_time(t_time *time)
@@ -27,7 +26,7 @@ static void	init_vao(t_all *al)
 {
 	glGenVertexArrays(1, &al->vao);
 	glBindVertexArray(al->vao);
-	printf("VAO: [%d/1]\n", al->vao);
+	printf("VAO: [%d/1]\t", al->vao);
 }
 
 static void	init_vbo(t_all *al)
@@ -41,7 +40,7 @@ static void	init_vbo(t_all *al)
 	};
 
 	glGenBuffers(1, &al->vbo);
-	printf("VBO: [%d/1]\n", al->vbo);
+	printf("VBO: [%d/1]\t", al->vbo);
 
 	glBindBuffer(GL_ARRAY_BUFFER, al->vbo);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertex), vertex, GL_STATIC_DRAW);
@@ -56,7 +55,7 @@ static void	init_ebo(t_all *al)
 	};
 
 	glGenBuffers(1, &al->ebo);
-	printf("EBO: [%d/1]\n", al->ebo);
+	printf("EBO: [%d/2]\n", al->ebo);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, al->ebo);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(element), element,
@@ -130,11 +129,9 @@ static void	init_uniforms(t_all *al)
 
 /* ########################################################################## */
 
-void	init(t_all *al)
+void	init(t_all *al, char *filename)
 {
 	ft_bzero(al, sizeof(t_all));
-
-	//al->fps = 60;
 
 	/* init SDL */
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
@@ -161,6 +158,9 @@ void	init(t_all *al)
 	// 	yeet(al);
 	// al->pixels = al->surface->pixels;
 
+	parse_data(al, filename);
+	// for (unsigned i = 0; i < al->data.element_size; i ++)
+	// 	printf("%d %d %d\n", al->data.element[i*3+0], al->data.element[i*3+1], al->data.element[i*3+2]);
 	init_vao(al);
 	init_vbo(al);
 	init_ebo(al);
