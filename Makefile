@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: brunomartin <brunomartin@student.42.fr>    +#+  +:+       +#+         #
+#    By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/07 14:21:44 by pitriche          #+#    #+#              #
-#    Updated: 2021/06/04 13:41:57 by brunomartin      ###   ########.fr        #
+#    Updated: 2021/06/07 15:13:57 by pitriche         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,13 +39,15 @@ CINCLUDE = -I include -I frameworks/SDL2.framework/headers \
 NAME = scop
 
 HEADERS = \
-include/scop.h	\
-include/utils.h	\
+include/scop.h		\
+include/utils.h		\
+include/matrix.h	\
 
 SRC_FILES = 	\
 init.c		\
 main.c		\
 main_loop.c	\
+matrix.c	\
 parser.c	\
 render.c	\
 utils.c		\

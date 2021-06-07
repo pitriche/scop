@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunomartin <brunomartin@student.42.fr>    +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 11:37:03 by pitriche          #+#    #+#             */
-/*   Updated: 2021/06/04 16:56:36 by brunomartin      ###   ########.fr       */
+/*   Updated: 2021/06/07 15:17:26 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "utils.h"
 #include "scop.h"
 #include <fcntl.h>		/* open */
 #include <unistd.h>		/* read, close, lseek */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunomartin <brunomartin@student.42.fr>    +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 09:46:37 by brunomartin       #+#    #+#             */
-/*   Updated: 2021/06/04 17:46:41 by brunomartin      ###   ########.fr       */
+/*   Updated: 2021/06/07 15:52:22 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,12 +121,20 @@ static void	init_attribute(t_all *al)
 	// glEnableVertexAttribArray(al->attribute.color);
 }
 
-static void	init_uniforms(t_all *al)
+static void	init_uniform(t_all *al)
 {
 	al->uniform.screen_ratio = glGetUniformLocation(al->shader.program,
 		"screen_ratio");
 	glUniform1f(al->uniform.screen_ratio, (GLfloat)WIN_SIZEX / WIN_SIZEY);
-	// to complete
+}
+
+/* ########################################################################## */
+
+static void	init_matrix(t_all *al)
+{
+	set_mat4_identity(al->matrix.model);
+	set_mat4_identity(al->matrix.view);
+	set_mat4_identity(al->matrix.projection);
 }
 
 /* ########################################################################## */
@@ -142,8 +150,10 @@ void	init(t_all *al, char *filename)
 	/* init OpenGL context, version 4.1 (adapt version to OS supported) */
 	if (SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK,
 		SDL_GL_CONTEXT_PROFILE_CORE) < 0 ||
-		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4) < 0 ||
-		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1) < 0 ||
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION,
+			OPENGL_VERSION_MAJOR) < 0 ||
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION,
+			OPENGL_VERSION_MINOR) < 0 ||
 		SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8) < 0)
 		yeet(al);
 
@@ -155,10 +165,8 @@ void	init(t_all *al, char *filename)
 	/* create OpenGL context */
 	al->glcontext = SDL_GL_CreateContext(al->window);
 
-	/* fetch window surface and pixels, DON'T USE ALONGSIDE OPENGL */
-	// if (!(al->surface = SDL_GetWindowSurface(al->window)))
-	// 	yeet(al);
-	// al->pixels = al->surface->pixels;
+	printf("Supported OpenGL version: %s\nUsing OpenGL %d.%d\n\n",
+		glGetString(GL_VERSION), OPENGL_VERSION_MAJOR, OPENGL_VERSION_MINOR);
 
 	parse_data(al, filename);
 	// for (unsigned i = 0; i < al->data.element_size; i ++)
@@ -166,9 +174,10 @@ void	init(t_all *al, char *filename)
 	init_vao(al);
 	init_vbo(al);
 	init_ebo(al);
+	init_matrix(al);
 	init_shader(al);
 	init_attribute(al);
-	init_uniforms(al);
+	init_uniform(al);
 
 	init_time(&al->time);
 }

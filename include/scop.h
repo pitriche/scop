@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scop.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunomartin <brunomartin@student.42.fr>    +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/22 15:59:52 by becaraya          #+#    #+#             */
-/*   Updated: 2021/06/04 17:42:02 by brunomartin      ###   ########.fr       */
+/*   Updated: 2021/06/07 16:02:16 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@
 
 # include <OpenGL/gl3.h>
 # include "SDL.h"
+
+# include "matrix.h"
+
+# define OPENGL_VERSION_MAJOR	4
+# define OPENGL_VERSION_MINOR	1
 
 # define WIN_TITLE "xXx_Qu1Ck_Sc0P_xXx"
 # define WIN_SIZEX	1280
@@ -58,6 +63,15 @@ typedef struct	s_time
 /* ########################################################################## */
 
 /* 3d data and buffers */
+typedef struct	s_matrix
+{
+	mat4	model;
+	mat4	view;
+	mat4	projection;
+}				t_matrix;
+
+
+/* 3d data and buffers */
 typedef struct	s_data
 {
 	GLsizeiptr	vertex_size;
@@ -75,7 +89,10 @@ typedef struct	s_uniform
 typedef struct	s_attribute
 {
 	GLuint	position;
-	GLuint	color;
+
+	GLuint	model;
+	GLuint	view;
+	GLuint	projection;
 }				t_attribute;
 
 typedef struct	s_shader
@@ -96,8 +113,6 @@ typedef struct	s_all
 	/* SDL */
 	SDL_Window		*window;
 	SDL_GLContext	glcontext;
-	// SDL_Surface	*surface;
-	// unsigned int	*pixels;
 
 	/* OpenGL */
 	GLuint			vao; /* Vertex Array Object */
@@ -108,6 +123,7 @@ typedef struct	s_all
 	t_uniform		uniform;
 
 	t_data			data;
+	t_matrix		matrix;
 
 	t_time			time;
 	t_keys			keys;

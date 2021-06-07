@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   matrix.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/31 11:37:52 by pitriche          #+#    #+#             */
-/*   Updated: 2021/06/07 15:13:11 by pitriche         ###   ########.fr       */
+/*   Created: 2021/06/07 15:12:27 by pitriche          #+#    #+#             */
+/*   Updated: 2021/06/07 15:13:21 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#ifndef MATRIX_H
+# define MATRIX_H
 
-#include <stddef.h> /* size_t */
+typedef float	mat4[16];
+// typedef GLfloat	vec4[4];
+// typedef GLfloat	vec3[3];
 
-unsigned long	usec_timestamp(void);
-void			ft_bzero(void *ptr, size_t size);
-const char		*read_file(const char *filename);
+void	set_mat4_identity(mat4 mat);
+void	print_mat4(mat4 mat);
+
 
 #endif
