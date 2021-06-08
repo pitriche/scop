@@ -14,9 +14,7 @@ void	main()
 	vec4	tmp_pos;
 
 	/* set color to white */
-	int iter = 0;
-	color_shader = vec3(sin(position.z * 10), cos(position.z * 10), -sin(position.z * 10));
-	iter++;
+	color_shader = vec3(sin(position.x), 0.05, -sin(position.x));
 
 	tmp_pos = vec4(position, 1.0);
 	gl_Position = projection_matrix * view_matrix * model_matrix * tmp_pos;

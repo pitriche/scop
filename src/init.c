@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 09:46:37 by brunomartin       #+#    #+#             */
-/*   Updated: 2021/06/08 17:31:18 by pitriche         ###   ########.fr       */
+/*   Updated: 2021/06/08 18:00:39 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ static void	init_uniform(t_all *al)
 static void	init_matrix(t_all *al)
 {
 	set_mat4_identity(al->data.matrix.model);
-	// rotate_mat4(al->data.matrix.model, 0.0f, 0.0f, 0.1f);
+	rotate_mat4(al->data.matrix.model, 0.0f, 0.0f, 0.1f);
 	// print_mat4(al->data.matrix.model);
 	translate_mat4(al->data.matrix.model, 0.0f, -1.0f, 0.0f);
 	print_mat4(al->data.matrix.model);
