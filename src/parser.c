@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunomartin <brunomartin@student.42.fr>    +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 09:46:37 by brunomartin       #+#    #+#             */
-/*   Updated: 2021/06/04 17:43:52 by brunomartin      ###   ########.fr       */
+/*   Updated: 2021/06/08 17:05:33 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,12 +87,12 @@ static void		parse_element(t_all *al, const char *str, size_t current)
 		current += next_char(str, current);
 	}
 	for (unsigned i = 0; i < 3; ++i)
-		al->data.element[current_element + i] = tmp[i];
+		al->data.element[current_element + i] = tmp[i] - 1;
 	current_element += 3;
 	if (number_vertex == 4)
 	{
 		for (unsigned i = 0; i < 3; ++i)
-			al->data.element[current_element + i] = tmp[(i + 2) % 4];
+			al->data.element[current_element + i] = tmp[(i + 2) % 4] - 1;
 		current_element += 3;
 	}
 }

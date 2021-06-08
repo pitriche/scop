@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/22 15:59:52 by becaraya          #+#    #+#             */
-/*   Updated: 2021/06/07 16:02:16 by pitriche         ###   ########.fr       */
+/*   Updated: 2021/06/08 13:23:32 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@
 # define WIN_SIZEY	720
 # define WIN_POSX	100
 # define WIN_POSY	50
+
+# define CAMERA_FOV		80.0f
+# define CAMERA_NEAR	1.0f
+# define CAMERA_FAR		10.0f
+
 
 /* ########################################################################## */
 
@@ -57,12 +62,11 @@ typedef struct	s_time
 	unsigned long	delta;
 
 	unsigned long	elapsed; /* can lag behind real time if frame time >1sec */
-	unsigned		elapsed_frames;
+	unsigned long	elapsed_frames;
 }				t_time;
 
 /* ########################################################################## */
 
-/* 3d data and buffers */
 typedef struct	s_matrix
 {
 	mat4	model;
@@ -70,29 +74,34 @@ typedef struct	s_matrix
 	mat4	projection;
 }				t_matrix;
 
-
 /* 3d data and buffers */
 typedef struct	s_data
 {
+	float		fov; /* radiant fov */
+
+	t_matrix	matrix;
+
 	GLsizeiptr	vertex_size;
 	GLfloat		*vertex;
 
 	GLsizeiptr	element_size;
 	GLuint		*element;
+
+
 }				t_data;
 
 typedef struct	s_uniform
 {
 	GLint	screen_ratio;
+
+	GLint	model;
+	GLint	view;
+	GLint	projection;
 }				t_uniform;
 
 typedef struct	s_attribute
 {
 	GLuint	position;
-
-	GLuint	model;
-	GLuint	view;
-	GLuint	projection;
 }				t_attribute;
 
 typedef struct	s_shader
@@ -123,7 +132,6 @@ typedef struct	s_all
 	t_uniform		uniform;
 
 	t_data			data;
-	t_matrix		matrix;
 
 	t_time			time;
 	t_keys			keys;

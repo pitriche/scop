@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunomartin <brunomartin@student.42.fr>    +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 11:47:13 by pitriche          #+#    #+#             */
-/*   Updated: 2021/06/04 10:41:55 by brunomartin      ###   ########.fr       */
+/*   Updated: 2021/06/08 17:02:44 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,32 @@ void		main_loop(t_all *al)
 				!event.key.repeat)
 				key_func(al, &event);
 		}
-		render(al);
 
+		float val = (al->time.delta * 1.0) / 1000000.0f;
+
+
+		rotate_mat4(al->data.matrix.model, 0.0f, val * 2, 0.0f);
+		glUniformMatrix4fv(al->uniform.model, 1, GL_FALSE, al->data.matrix.model);
+		// translate_mat4(al->data.matrix.model, 0.0f, 0.0f, 0.1f);
+		// glUniformMatrix4fv(al->uniform.model, 1, GL_FALSE, al->data.matrix.model);
+
+
+		// al->data.vertex[2] -= val;
+		// al->data.vertex[5] -= val;
+		// al->data.vertex[8] -= val;
+		// al->data.vertex[11] -= val;
+		// glBufferData(GL_ARRAY_BUFFER, al->data.vertex_size, al->data.vertex,
+		// GL_STATIC_DRAW);
+
+
+		// translate_mat4(al->data.matrix.view, 0, 0, -val);
+		// rotate_mat4(al->data.matrix.view, 0.0f, val, 0.0f);
+		// glUniformMatrix4fv(al->uniform.view, 1, GL_FALSE, al->data.matrix.view);
+		
+
+
+
+		render(al);
 		dtime(al);
 		if (al->time.elapsed_frames % 30 == 0)
 			//printf("Render time: %f ms\n", al->time.delta / 1000.0f);

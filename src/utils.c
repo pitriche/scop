@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 11:37:03 by pitriche          #+#    #+#             */
-/*   Updated: 2021/06/07 15:17:26 by pitriche         ###   ########.fr       */
+/*   Updated: 2021/06/08 13:10:40 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,19 +51,4 @@ const char		*read_file(const char *filename)
 	content[file_size] = 0;
 	close(fd);
 	return (content);
-}
-
-/* 0 fill a memory field */
-void			ft_bzero(void *ptr, size_t size)
-{
-	while (size & 0b111)
-	{
-		--size;
-		*((char *)ptr + size) = 0;
-	}
-	while (size >= 8)
-	{
-		size -= 8;
-		*((long *)ptr + (size >> 3)) = 0;
-	}
 }
