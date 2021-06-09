@@ -1,10 +1,20 @@
 #version 410 core
 
-in vec3	color_shader;
+uniform sampler2D	texture_sampler;
+uniform float		blending;
 
-out vec4 outColor;
+in vec3		color_geometry;
+in vec2		texture_position_geometry;
+
+out vec4	outColor;
 
 void	main()
 {
-	outColor = vec4(color_shader, 1.0);
+	vec4	tmp_tex;
+	vec4	tmp_facet;
+
+	tmp_tex = vec4(texture(texture_sampler, texture_position_geometry));
+	tmp_facet = vec4(color_geometry, 1.0);
+
+	outColor = mix(tmp_tex, tmp_facet, blending);
 }

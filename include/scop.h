@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scop.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre42 <pierre42@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/22 15:59:52 by becaraya          #+#    #+#             */
-/*   Updated: 2021/06/09 09:51:01 by pitriche         ###   ########.fr       */
+/*   Updated: 2021/06/09 17:56:57 by pierre42         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define WIN_POSX	100
 # define WIN_POSY	50
 
-# define CAMERA_FOV		80.0f
+# define CAMERA_FOV		60.0f
 # define CAMERA_NEAR	1.0f
 # define CAMERA_FAR		10.0f
 
@@ -43,10 +43,8 @@ typedef struct	s_keys
 	unsigned	a:1;
 	unsigned	s:1;
 	unsigned	d:1;
-	unsigned	left:1;
-	unsigned	righ:1;
-	unsigned	up:1;
-	unsigned	down:1;
+	unsigned	z:1;
+	unsigned	x:1;
 }				t_keys;
 
 /* ########################################################################## */
@@ -60,6 +58,7 @@ typedef struct	s_time
 	unsigned long	last;
 	unsigned long	target;
 	unsigned long	delta;
+	float			delta_sec;
 
 	unsigned long	elapsed; /* can lag behind real time if frame time >1sec */
 	unsigned long	elapsed_frames;
@@ -77,7 +76,11 @@ typedef struct	s_matrix
 /* 3d data and buffers */
 typedef struct	s_data
 {
-	float		fov; /* radiant fov */
+	float		fov;		/* radiant fov */
+
+	float		blending;	/* blend facet and texture colors */
+	unsigned	animation_status;
+
 
 	t_matrix	matrix;
 
@@ -86,17 +89,16 @@ typedef struct	s_data
 
 	GLsizeiptr	element_size;
 	GLuint		*element;
-
-
 }				t_data;
 
 typedef struct	s_uniform
 {
-	GLint	screen_ratio;
-
+	/* matrices */
 	GLint	model;
 	GLint	view;
 	GLint	projection;
+
+	GLint	blending;
 }				t_uniform;
 
 typedef struct	s_attribute
@@ -108,6 +110,7 @@ typedef struct	s_attribute
 typedef struct	s_shader
 {
 	GLuint 			vertex;
+	GLuint 			geometry;
 	GLuint 			fragment;
 
 	GLuint			program;
@@ -128,6 +131,8 @@ typedef struct	s_all
 	t_shader		shader;
 	t_attribute		attribute;
 	t_uniform		uniform;
+
+	GLuint 			texture;
 
 	t_data			data;
 

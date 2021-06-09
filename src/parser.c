@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre42 <pierre42@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 09:46:37 by brunomartin       #+#    #+#             */
-/*   Updated: 2021/06/09 09:19:36 by pitriche         ###   ########.fr       */
+/*   Updated: 2021/06/09 17:59:35 by pierre42         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ static size_t	next_char(const char *str, size_t current)
 
 static void		parse_vertex(t_all *al, const char *str, size_t current)
 {
+	static const float	color_palette[6] = {0.2f, 0.3f, 0.4f, 0.5f, 0.6f, 0.7f};
+	static int			current_color = 0;
+
 	static unsigned	current_vertex = 0;
 	unsigned		number_num;
 
@@ -69,7 +72,10 @@ static void		parse_vertex(t_all *al, const char *str, size_t current)
 		printf("Parsing error, invalid vertex (%d numbers)\n", number_num);
 		yeet(al);
 	}
-	al->data.vertex[current_vertex + 3] = rand() / (float)INT_MAX;
+
+
+	al->data.vertex[current_vertex + 3] = color_palette[current_color++ % 6];
+	// 0.2f + (rand() / (float)INT_MAX) * 0.8f;
 	current_vertex += 4;
 }
 
@@ -193,6 +199,6 @@ void	parse_data(t_all *al, char *filename)
 	}
 	free((void *)file);
 	printf("Loaded %ld vertices and %ld elements\n",
-		al->data.vertex_size / (long)(3 * sizeof(float)),
+		al->data.vertex_size / (long)(4 * sizeof(float)),
 		al->data.element_size / (long)(3 * sizeof(unsigned int)));
 }

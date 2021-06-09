@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre42 <pierre42@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 17:38:54 by pitriche          #+#    #+#             */
-/*   Updated: 2021/06/08 17:26:47 by pitriche         ###   ########.fr       */
+/*   Updated: 2021/06/09 17:59:29 by pierre42         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	render(t_all *al)
 
 	glDrawElements(GL_TRIANGLES, (GLsizei)al->data.element_size /
 		(GLsizei)sizeof(float), GL_UNSIGNED_INT, 0);
-	//glDrawArrays(GL_TRIANGLES, 0, 3);
 
 	SDL_GL_SwapWindow(al->window);
 }

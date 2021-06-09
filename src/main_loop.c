@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre42 <pierre42@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 11:47:13 by pitriche          #+#    #+#             */
-/*   Updated: 2021/06/09 09:04:39 by pitriche         ###   ########.fr       */
+/*   Updated: 2021/06/09 17:07:44 by pierre42         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static void	dtime(t_all *al)
 
 	al->time.delta = al->time.current - al->time.last;
 	al->time.delta > 1000000 ? al->time.delta = 1000000 : 0;
+	al->time.delta_sec = al->time.delta / 1000000.0f;
 
 	al->time.last = al->time.current;
 	al->time.target = al->time.current + 1000000 / al->time.fps;
@@ -38,6 +39,8 @@ static void	key_func(t_all *al, SDL_Event *event)
 {
 	unsigned	value;
 
+	if (event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_c)
+		al->data.animation_status = !al->data.animation_status;
 	value = event->type == SDL_KEYDOWN ? 1 : 0;
 	switch (event->key.keysym.sym)
 	{
@@ -46,11 +49,44 @@ static void	key_func(t_all *al, SDL_Event *event)
 		case (SDLK_a) : al->keys.a = value; break;
 		case (SDLK_s) : al->keys.s = value; break;
 		case (SDLK_d) : al->keys.d = value; break;
-		case (SDLK_LEFT) : al->keys.left = value; break;
-		case (SDLK_RIGHT) : al->keys.righ = value; break;
-		case (SDLK_UP) : al->keys.up = value; break;
-		case (SDLK_DOWN) : al->keys.down = value; break;
+		case (SDLK_z) : al->keys.z = value; break;
+		case (SDLK_x) : al->keys.x = value; break;
 	}
+}
+
+static void	update(t_all *al)
+{
+	rotate_mat4(al->data.matrix.model, 0.0f, al->time.delta_sec * 0.7f, 0.0f);
+
+	if (al->keys.w)
+		translate_mat4(al->data.matrix.view, 0, al->time.delta_sec * 2, 0);
+	if (al->keys.a)
+		translate_mat4(al->data.matrix.view, -al->time.delta_sec * 2, 0, 0);
+	if (al->keys.s)
+		translate_mat4(al->data.matrix.view, 0, -al->time.delta_sec * 2, 0);
+	if (al->keys.d)
+		translate_mat4(al->data.matrix.view, al->time.delta_sec * 2, 0, 0);
+	if (al->keys.z)
+		translate_mat4(al->data.matrix.view, 0, 0, -al->time.delta_sec * 2);
+	if (al->keys.x)
+		translate_mat4(al->data.matrix.view, 0, 0, al->time.delta_sec * 2);
+
+	if (al->data.animation_status)
+	{
+		if (al->data.blending < 1.0f)
+			al->data.blending += al->time.delta_sec * 0.8f;
+	}
+	else
+	{
+		if (al->data.blending > 0.0f)
+			al->data.blending -= al->time.delta_sec * 0.8f;
+	}
+
+	/* update uniforms */
+	glUniformMatrix4fv(al->uniform.model, 1, GL_FALSE, al->data.matrix.model);
+	glUniformMatrix4fv(al->uniform.view, 1, GL_FALSE, al->data.matrix.view);
+	glUniform1f(al->uniform.blending, al->data.blending);
+	
 }
 
 void		main_loop(t_all *al)
@@ -68,29 +104,7 @@ void		main_loop(t_all *al)
 				key_func(al, &event);
 		}
 
-		float val = (al->time.delta * 1.0f) / 1000000.0f;
-
-		rotate_mat4(al->data.matrix.model, 0.0f, val * 2, 0.0f);
-		glUniformMatrix4fv(al->uniform.model, 1, GL_FALSE, al->data.matrix.model);
-		// translate_mat4(al->data.matrix.model, 0.0f, 0.0f, 0.1f);
-		// glUniformMatrix4fv(al->uniform.model, 1, GL_FALSE, al->data.matrix.model);
-
-
-		// al->data.vertex[2] -= val;
-		// al->data.vertex[5] -= val;
-		// al->data.vertex[8] -= val;
-		// al->data.vertex[11] -= val;
-		// glBufferData(GL_ARRAY_BUFFER, al->data.vertex_size, al->data.vertex,
-		// GL_STATIC_DRAW);
-
-
-		// translate_mat4(al->data.matrix.view, 0, 0, -val);
-		// rotate_mat4(al->data.matrix.view, 0.0f, val, 0.0f);
-		// glUniformMatrix4fv(al->uniform.view, 1, GL_FALSE, al->data.matrix.view);
-		
-
-
-
+		update(al);
 		render(al);
 		dtime(al);
 		if (al->time.elapsed_frames % 30 == 0)

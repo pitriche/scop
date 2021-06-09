@@ -1,6 +1,5 @@
 #version 410 core
 
-uniform float	screen_ratio;
 uniform mat4	model_matrix;
 uniform mat4	view_matrix;
 uniform mat4	projection_matrix;
@@ -8,23 +7,18 @@ uniform mat4	projection_matrix;
 in vec3			position;
 in float		color_grey;
 
-// out vec3		color_textureshader;
-out vec3		color_shader;
+out vec3		color_vertex;
+out vec2		texture_position_vertex;
 
 void	main()
 {
 	vec4	tmp_pos;
-	vec3	greyshade_color;
-	vec3	texture_color;
 
 	/* get greyshade color */
-	greyshade_color = vec3(color_grey);
+	color_vertex = vec3(color_grey);
 
-	/* get texture color */
-	texture_color = vec3(1.0, 0.0, 0.0);
-
-	/* get final color using mix uniform */
-	color_shader = mix(greyshade_color, texture_color, 0.0);
+	/* get texture position */
+	texture_position_vertex = vec2(position.z / 3 + 0.5, position.y / 1.5 + 0.5);
 
 
 	/* get coordonates */
