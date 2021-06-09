@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   yeet.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunomartin <brunomartin@student.42.fr>    +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 12:23:57 by pitriche          #+#    #+#             */
-/*   Updated: 2021/06/04 12:24:40 by brunomartin      ###   ########.fr       */
+/*   Updated: 2021/06/09 09:52:37 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,6 @@
 
 int	yeet(t_all *al)
 {
-	/* shaders code */
-	if (al->shader.fragment_code)
-		free((void *)al->shader.fragment_code);
-	if (al->shader.vertex_code)
-		free((void *)al->shader.vertex_code);
-
-	
 	/* vertex and element data */
 	if (al->data.vertex)
 		free((void *)al->data.vertex);

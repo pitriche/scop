@@ -6,14 +6,15 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 09:46:37 by brunomartin       #+#    #+#             */
-/*   Updated: 2021/06/08 17:05:33 by pitriche         ###   ########.fr       */
+/*   Updated: 2021/06/09 09:19:36 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 #include "utils.h"	/* read_file */
 #include <stdio.h>	/* printf */
-#include <stdlib.h>	/* atoi */
+#include <stdlib.h>	/* atoi, rand */
+#include <limits.h>	/* MAX_INT */
 
 static size_t	next_line(const char *str, size_t current)
 {
@@ -68,7 +69,8 @@ static void		parse_vertex(t_all *al, const char *str, size_t current)
 		printf("Parsing error, invalid vertex (%d numbers)\n", number_num);
 		yeet(al);
 	}
-	current_vertex += 3;
+	al->data.vertex[current_vertex + 3] = rand() / (float)INT_MAX;
+	current_vertex += 4;
 }
 
 static void		parse_element(t_all *al, const char *str, size_t current)
@@ -158,7 +160,7 @@ static void		init_sizes(t_all *al, const char *str)
 		}
 		current += next_line(str, current);
 	}
-	al->data.vertex_size *= 3 * sizeof(float);
+	al->data.vertex_size *= 4 * sizeof(float);
 	al->data.element_size *= 3 * sizeof(unsigned int);
 	al->data.vertex = malloc((size_t)al->data.vertex_size);
 	al->data.element = malloc((size_t)al->data.element_size);

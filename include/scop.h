@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/22 15:59:52 by becaraya          #+#    #+#             */
-/*   Updated: 2021/06/08 13:23:32 by pitriche         ###   ########.fr       */
+/*   Updated: 2021/06/09 09:51:01 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,13 +102,11 @@ typedef struct	s_uniform
 typedef struct	s_attribute
 {
 	GLuint	position;
+	GLuint	color_grey;
 }				t_attribute;
 
 typedef struct	s_shader
 {
-	const GLchar	*vertex_code;
-	const GLchar	*fragment_code;
-
 	GLuint 			vertex;
 	GLuint 			fragment;
 

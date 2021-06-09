@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 09:46:37 by brunomartin       #+#    #+#             */
-/*   Updated: 2021/06/08 18:00:39 by pitriche         ###   ########.fr       */
+/*   Updated: 2021/06/09 09:57:28 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,35 +67,68 @@ static void	init_ebo(t_all *al)
 
 /* ########################################################################## */
 
+static GLuint compile_shader(const char *filename, GLenum type)
+{
+	GLuint	shader;
+	char	*code;
+	GLint	status;
+	char	buffer[512];
+
+	code = read_file(filename);
+	shader = glCreateShader(type);
+	glShaderSource(shader, 1, &code, 0);
+
+	/* compiling */
+	glCompileShader(shader);
+	
+	/* error checking */
+	glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
+	if (status != GL_TRUE)
+	{
+		printf("[%s] shader compilation failed: [%d/1]\n", filename, status);
+		glGetShaderInfoLog(shader, 512, NULL, buffer);
+		printf("Compilation log:\n%s\n", buffer);
+		//yeet(al);
+	}
+	free(code);
+	return (shader);
+}
+
 static void	init_shader(t_all *al)
 {
-	char	buffer[512];
-	GLint	status[2] = {0, 0};
+	// char	buffer[512];
+	// GLint	status[2] = {0, 0};
 
-	al->shader.vertex_code = read_file("shader/vertex_shader.glsl");
-	al->shader.fragment_code = read_file("shader/fragment_shader.glsl");
-	al->shader.vertex = glCreateShader(GL_VERTEX_SHADER);
-	al->shader.fragment = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(al->shader.vertex, 1, &al->shader.vertex_code, 0);
-	glShaderSource(al->shader.fragment, 1, &al->shader.fragment_code, 0);
+	// char * vertex_code;
+	// char * fragment_code;
+
+	// vertex_code = read_file("shader/vertex_shader.glsl");
+	// fragment_code = read_file("shader/fragment_shader.glsl");
+	// // al->shader.fragment_code = read_file("shader/geometry_shader.glsl");
+	// al->shader.vertex = glCreateShader(GL_VERTEX_SHADER);
+	// al->shader.fragment = glCreateShader(GL_FRAGMENT_SHADER);
+	// glShaderSource(al->shader.vertex, 1, &vertex_code, 0);
+	// glShaderSource(al->shader.fragment, 1, &fragment_code, 0);
 	
-	/* compile shaders */
-	glCompileShader(al->shader.vertex);
-	glCompileShader(al->shader.fragment);
+	// /* compile shaders */
+	// glCompileShader(al->shader.vertex);
+	// glCompileShader(al->shader.fragment);
 
-	/* check shader compilation success */
-	glGetShaderiv(al->shader.vertex, GL_COMPILE_STATUS, &status[0]);
-	glGetShaderiv(al->shader.fragment, GL_COMPILE_STATUS, &status[1]);
-	if (status[0] != GL_TRUE || status[1] != GL_TRUE)
-	{
-		printf("Shaders compilation failed:\nvertex: [%d/1] fragment [%d/1]\n",
-			status[0], status[1]);
-		glGetShaderInfoLog(al->shader.vertex, 512, NULL, buffer);
-		printf("vertex log:\n%s\n", buffer);
-		glGetShaderInfoLog(al->shader.fragment, 512, NULL, buffer);
-		printf("fragment log:\n%s\n", buffer);
-		yeet(al);
-	}
+	// /* check shader compilation success */
+	// glGetShaderiv(al->shader.vertex, GL_COMPILE_STATUS, &status[0]);
+	// glGetShaderiv(al->shader.fragment, GL_COMPILE_STATUS, &status[1]);
+	// if (status[0] != GL_TRUE || status[1] != GL_TRUE)
+	// {
+	// 	printf("Shaders compilation failed:\nvertex: [%d/1] fragment [%d/1]\n",
+	// 		status[0], status[1]);
+	// 	glGetShaderInfoLog(al->shader.vertex, 512, NULL, buffer);
+	// 	printf("vertex log:\n%s\n", buffer);
+	// 	glGetShaderInfoLog(al->shader.fragment, 512, NULL, buffer);
+	// 	printf("fragment log:\n%s\n", buffer);
+	// 	yeet(al);
+	// }
+	al->shader.vertex = compile_shader("shader/vertex_shader.glsl", GL_VERTEX_SHADER);
+	al->shader.fragment = compile_shader("shader/fragment_shader.glsl", GL_FRAGMENT_SHADER);
 
 	/* create shader program and attach shaders */
 	al->shader.program = glCreateProgram();
@@ -113,17 +146,17 @@ static void	init_shader(t_all *al)
 
 static void	init_attribute(t_all *al)
 {
-	// al->attribute.color = (GLuint)glGetAttribLocation(al->shader.program,
-	// 	"color");
-	// glVertexAttribPointer(al->attribute.color, 3, GL_FLOAT, GL_FALSE,
-	// 	sizeof(float) * 6, (void *)(sizeof(float) * 3));
-	// glEnableVertexAttribArray(al->attribute.color);
-
 	al->attribute.position = (GLuint)glGetAttribLocation(al->shader.program,
 		"position");
 	glVertexAttribPointer(al->attribute.position, 3, GL_FLOAT, GL_FALSE,
-		sizeof(float) * 3, (void *)(0));
+		sizeof(float) * 4, (void *)(0));
 	glEnableVertexAttribArray(al->attribute.position);
+	
+	al->attribute.color_grey = (GLuint)glGetAttribLocation(al->shader.program,
+		"color_grey");
+	glVertexAttribPointer(al->attribute.color_grey, 1, GL_FLOAT, GL_FALSE,
+		sizeof(float) * 4, (void *)(sizeof(float) * 3));
+	glEnableVertexAttribArray(al->attribute.color_grey);
 }
 
 static void	init_uniform(t_all *al)
@@ -148,13 +181,12 @@ static void	init_uniform(t_all *al)
 
 /* ########################################################################## */
 
-static void	init_matrix(t_all *al)
+static void	init_matrix(t_all *al) // ADD MODEL BASED TRANSLATIONS
 {
 	set_mat4_identity(al->data.matrix.model);
 	rotate_mat4(al->data.matrix.model, 0.0f, 0.0f, 0.1f);
 	// print_mat4(al->data.matrix.model);
 	translate_mat4(al->data.matrix.model, 0.0f, -1.0f, 0.0f);
-	print_mat4(al->data.matrix.model);
 
 	/* call translate before rotate */
 	set_mat4_identity(al->data.matrix.view);
@@ -202,8 +234,8 @@ void	init(t_all *al, char *filename)
 		glGetString(GL_VERSION), OPENGL_VERSION_MAJOR, OPENGL_VERSION_MINOR);
 
 	parse_data(al, filename);
-	for (unsigned i = 0; i < al->data.element_size / sizeof(float) / 3; i ++)
-		printf("elem %d > %d %d %d\n", i, al->data.element[i*3+0], al->data.element[i*3+1], al->data.element[i*3+2]);
+	// for (unsigned i = 0; i < al->data.element_size / sizeof(float) / 3; i ++)
+	// 	printf("elem %d > %d %d %d\n", i, al->data.element[i*3+0], al->data.element[i*3+1], al->data.element[i*3+2]);
 	init_vao(al);
 	init_vbo(al);
 	init_ebo(al);

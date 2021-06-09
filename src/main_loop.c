@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 11:47:13 by pitriche          #+#    #+#             */
-/*   Updated: 2021/06/08 17:02:44 by pitriche         ###   ########.fr       */
+/*   Updated: 2021/06/09 09:04:39 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,7 @@ void		main_loop(t_all *al)
 				key_func(al, &event);
 		}
 
-		float val = (al->time.delta * 1.0) / 1000000.0f;
-
+		float val = (al->time.delta * 1.0f) / 1000000.0f;
 
 		rotate_mat4(al->data.matrix.model, 0.0f, val * 2, 0.0f);
 		glUniformMatrix4fv(al->uniform.model, 1, GL_FALSE, al->data.matrix.model);
