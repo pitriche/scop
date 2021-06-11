@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 12:23:57 by pitriche          #+#    #+#             */
-/*   Updated: 2021/06/09 09:52:37 by pitriche         ###   ########.fr       */
+/*   Updated: 2021/06/11 09:54:34 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,6 @@ int	yeet(t_all *al)
 		free((void *)al->data.vertex);
 	if (al->data.element)
 		free((void *)al->data.element);
-
-	/* OpenGL Context */
-	if (al->glcontext)
-		SDL_GL_DeleteContext(al->glcontext);
 
 	/* SDL window and SDL */
 	if (al->window)
